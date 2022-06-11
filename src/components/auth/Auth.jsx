@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import React, { useState, useRef } from 'react'
 import { auth } from '../../firebase/config'
 
-export function Auth() {
+const Auth = () => {
 
   const emailInput = useRef(); 
   const passwordInput = useRef();
@@ -120,3 +120,5 @@ export function Auth() {
     </MantineProvider>
   );
 }
+
+export default Auth;

@@ -1,20 +1,17 @@
-import { db } from './firebase/config';
-import { ref, set } from "firebase/database"
-import { Auth } from './components/auth/Auth';
+import React, {useState} from 'react';
+import { Load } from './components';
+import RouteSwitch from './RouteSwitch';
 
-function App() {
-
-  /*
-  const debugDB = async () => {
-    await set(ref(db, 'debug'), {
-      name: "Santo"
-    })
-  }
-  */
-
+const App = () => {
+  const [user, setUser] = useState({});
+  const [onLoad, setOnLoad] = useState(true);
+  
   return (
     <div className='App'>
-      <Auth />
+      {
+        onLoad ? <Load setOnLoad={setOnLoad} setUser={setUser} /> :
+        <RouteSwitch user={user} setUser={setUser} />
+      }
     </div>
   );
 }
