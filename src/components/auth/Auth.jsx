@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   TextInput,
   PasswordInput,
@@ -12,10 +11,9 @@ import {
   Button,
   MantineProvider
 } from '@mantine/core';
-import { 
-  useState,
-  useRef 
-} from 'react';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState, useRef } from 'react'
+import { auth } from '../../firebase/config'
 
 export function Auth() {
 
@@ -28,6 +26,27 @@ export function Auth() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [isLogin, setIsLogin] = useState(false);
+
+  const register = async () => {
+    try {
+      if(registerPassword === registerConfirmPassword){
+        const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+        //navigate
+      }else{
+        confirmPasswordInput.current.style.color = "red"
+      }
+    } catch (error){
+      console.log(error.message);
+    }
+  }
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+    } catch (error){
+      console.log(error.message)
+    }
+  }
 
   const changeAuthState = () => {
     const resetInputs = () => {
@@ -45,6 +64,9 @@ export function Auth() {
 
     isLogin === false ? setIsLogin(true) : setIsLogin(false);
     resetInputs();
+    if(confirmPasswordInput.current !== null){
+      confirmPasswordInput.current.style.color = "black"
+    }
   }
 
   return (
@@ -75,7 +97,8 @@ export function Auth() {
             }}/>
             {
               !isLogin && <PasswordInput ref={confirmPasswordInput} label="Confirm password" placeholder="Password" required mt="md" onChange={(event) => {
-                setRegisterConfirmPassword(event.target.value);              }}/>
+                setRegisterConfirmPassword(event.target.value); 
+            }}/>
             }
             <Group position="apart" mt="md">
             {isLogin && 
@@ -87,7 +110,9 @@ export function Auth() {
             </>
             }
             </Group>
-            <Button fullWidth mt="xl">
+            <Button fullWidth mt="xl" onClick={() => {
+              isLogin ? login() : register()
+            }}>
             {isLogin ? 'Sign in' : 'Register'}
             </Button>
         </Paper>
