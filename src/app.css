@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+:root{
+    --primary-white: white;
+    --secondary-white: rgb(238, 238, 238);
+    --blue: #228be6;
+}
+
+.app-icon{
+    font-size: 1.5rem;
+    color: var(--blue);
+    filter: grayscale(1);
+    margin-inline: 0.75rem;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.app-icon:hover{
+    filter: grayscale(0);
+}

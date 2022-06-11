@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Load } from './components';
 import RouteSwitch from './RouteSwitch';
+import './app.css'
 
 const App = () => {
   const [user, setUser] = useState({});

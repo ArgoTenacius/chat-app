@@ -10,7 +10,7 @@
     margin: auto;
     border: 20px solid transparent;
     border-radius: 50%;
-    border-top: 20px solid #228be6;
+    border-top: 20px solid var(--blue);
     width: 200px;
     height: 200px;
     animation: spinner 4s linear infinite;
