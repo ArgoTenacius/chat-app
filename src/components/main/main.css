@@ -1,0 +1,29 @@
+.main{
+    width: 100vw;
+    height: 100vh;
+}
+
+.main__sidebar{
+    width: 27.5%;
+    background-color: var(--secondary-white);
+    min-height: 100%;
+    min-width: 360px;
+    padding: 0.5%;
+}
+
+.main__sidebar-user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main__sidebar-user div{
+    margin-inline: 2%;
+}
+
+.main__sidebar-user img{
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    cursor: pointer;
+}
