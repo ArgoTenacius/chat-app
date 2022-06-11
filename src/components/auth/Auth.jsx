@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import React, { useState, useRef } from 'react'
 import { auth } from '../../firebase/config'
 
-const Auth = () => {
+const Auth = ({navigate, routes}) => {
 
   const emailInput = useRef(); 
   const passwordInput = useRef();
@@ -30,8 +30,9 @@ const Auth = () => {
   const register = async () => {
     try {
       if(registerPassword === registerConfirmPassword){
-        const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-        //navigate
+        navigate(routes.MAIN);
+        await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+        await signInWithEmailAndPassword(auth, registerEmail, registerPassword);
       }else{
         confirmPasswordInput.current.style.color = "red"
       }
@@ -42,7 +43,7 @@ const Auth = () => {
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
     } catch (error){
       console.log(error.message)
     }
