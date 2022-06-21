@@ -11,7 +11,7 @@ import {
   Button,
   MantineProvider
 } from '@mantine/core';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, getAuth } from 'firebase/auth';
 import React, { useState, useRef } from 'react'
 import { auth } from '../../firebase/config'
 
@@ -20,6 +20,7 @@ const Auth = ({navigate, routes}) => {
   const emailInput = useRef(); 
   const passwordInput = useRef();
   const confirmPasswordInput = useRef();
+  const [displayName, setDisplayName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
@@ -31,8 +32,13 @@ const Auth = ({navigate, routes}) => {
     try {
       if(registerPassword === registerConfirmPassword){
         navigate(routes.MAIN);
-        await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-        await signInWithEmailAndPassword(auth, registerEmail, registerPassword);
+        await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+        .then((result) => {
+          updateProfile(result.user, {
+            displayName: displayName,
+            photoURL: "https://excellence.truman.edu/files/2022/02/Photo-Placeholder-Image-150x150-1.jpg"
+          })
+        });
       }else{
         confirmPasswordInput.current.style.color = "red"
       }
@@ -90,6 +96,9 @@ const Auth = ({navigate, routes}) => {
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+            <TextInput ref={emailInput} label="Name" placeholder="John Doe" required onChange={(event) => {
+              setDisplayName(event.target.value);
+            }}/>
             <TextInput ref={emailInput} label="Email" placeholder="example@gmail.com" required onChange={(event) => {
               isLogin ? setLoginEmail(event.target.value) : setRegisterEmail(event.target.value)
             }}/>

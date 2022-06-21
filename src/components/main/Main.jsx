@@ -16,15 +16,17 @@ const Main = ({user}) => {
                 {
                     addContact && <Profile
                         setAddContact={setAddContact}
-                        avatar="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-                        name="Paulo"
-                        email="Test@gmail.com"
+                        avatar={user.photoURL}
+                        name={user.displayName}
+                        email={user.email}
                     />
                 }
                 <header className='main__sidebar-user'>
-                    <img src='https://excellence.truman.edu/files/2022/02/Photo-Placeholder-Image-150x150-1.jpg' alt='profile_photo'/>
+                    <img src='https://excellence.truman.edu/files/2022/02/Photo-Placeholder-Image-150x150-1.jpg' 
+                    alt='profile_photo'
+                    onClick={() => setAddContact(true)} />
                     <div>
-                        <BsFillChatLeftTextFill className='app-icon' onClick={() => setAddContact(true)}/>
+                        <BsFillChatLeftTextFill className='app-icon'/>
                     </div>
                 </header>
 
