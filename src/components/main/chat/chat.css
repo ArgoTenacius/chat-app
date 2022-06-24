@@ -1,0 +1,23 @@
+.chat{
+    width: 100%;
+}
+
+.chat__header{
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-white);
+    padding: 0.75%;
+}
+
+.chat__header-photo{
+    aspect-ratio: 1 / 1;
+    width: 48px;
+    border-radius: 100%;
+}
+
+.chat__header-name{
+    margin-inline: 2%;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
