@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 
 const Main = ({user}) => {
     const theme = useMantineTheme();
+    const [chatLog, setChatLog] = useState();
     const [chatUser, setChatUser] = useState(undefined);
     const [addContact, setAddContact] = useState(false);
     const [contact, setContact] = useState([]);
@@ -28,10 +29,6 @@ const Main = ({user}) => {
     useEffect(() => {
         getContacts();
     }, [])
-
-    useEffect(() => {
-        console.log(chatUser)
-    }, [chatUser])
 
     return (
         <main className='main'>
@@ -70,13 +67,13 @@ const Main = ({user}) => {
 
                 <div className='main__chatList'>
                     {
-                        contact.map((index) => (
-                            <Contact key={index.id} photo={index.user.photoURL} name={index.user.name} setChatUser={setChatUser}/>
+                        contact.map((index, id) => (
+                            <Contact key={id} user={index.user} log={index.log} setChatUser={setChatUser} setChatLog={setChatLog}/>
                         ))
                     }
                 </div>
             </div>
-            <Chat user={chatUser}/>
+            <Chat user={chatUser} log={chatLog}/>
         </main>
     )
 }
