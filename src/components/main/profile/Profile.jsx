@@ -1,6 +1,5 @@
 import React from 'react';
-import { Avatar, Text, Button, Paper } from '@mantine/core';
-import { BsPencilSquare } from 'react-icons/bs'
+import { Avatar, Text, Paper } from '@mantine/core';
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import './profile.css'
 import { useRef } from 'react';
@@ -36,7 +35,6 @@ export function Profile({ setAddContact, avatar, name, email }) {
           <Text align="center" size="lg" weight={500} mt="md">
             {name}
           </Text>
-          <BsPencilSquare />
         </div>
         <Text align="center" color="dimmed" size="sm">
           {email}

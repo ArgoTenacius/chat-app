@@ -1,5 +1,4 @@
 .main{
-    width: 100vw;
     height: 100vh;
 }
 
@@ -8,7 +7,7 @@
     background-color: var(--secondary-white);
     min-height: 100%;
     min-width: 360px;
-    padding: 0.5%;
+    margin: 0.5%;
 }
 
 .main__sidebar-user{
