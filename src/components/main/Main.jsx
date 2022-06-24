@@ -7,11 +7,13 @@ import { collection, getDocs, doc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { Profile } from './profile/Profile';
 import { Contact } from './contact/Contact';
+import { Chat } from './chat/Chat'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
 const Main = ({user}) => {
     const theme = useMantineTheme();
+    const [chatUser, setChatUser] = useState(undefined);
     const [addContact, setAddContact] = useState(false);
     const [contact, setContact] = useState([]);
     const appContacts = collection(db, "contacts");
@@ -26,6 +28,10 @@ const Main = ({user}) => {
     useEffect(() => {
         getContacts();
     }, [])
+
+    useEffect(() => {
+        console.log(chatUser)
+    }, [chatUser])
 
     return (
         <main className='main'>
@@ -65,14 +71,12 @@ const Main = ({user}) => {
                 <div className='main__chatList'>
                     {
                         contact.map((index) => (
-                            <Contact key={index.id} photo={index.user.photoURL} name={index.user.name}/>
+                            <Contact key={index.id} photo={index.user.photoURL} name={index.user.name} setChatUser={setChatUser}/>
                         ))
                     }
                 </div>
-
-                <section className='main__sidebar-contacts'>
-                </section>
             </div>
+            <Chat user={chatUser}/>
         </main>
     )
 }
