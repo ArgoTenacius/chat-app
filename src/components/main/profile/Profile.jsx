@@ -30,7 +30,7 @@ export function Profile({ setAddContact, avatar, name, email }) {
         style={{position: "absolute", top: "5", left: "5", fontSize: "1.5rem", cursor: "pointer"}}
         onClick={() => _close()}
         />
-        <Avatar src={avatar} size={120} radius={120} mx="auto" />
+        <Avatar src={avatar} size={120} radius={120} mx="auto" style={{cursor: "pointer"}}/>
         <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.3rem"}}>
           <Text align="center" size="lg" weight={500} mt="md">
             {name}

@@ -1,14 +1,31 @@
 import React from 'react'
 import './main.css'
 import {BsFillChatLeftTextFill} from 'react-icons/bs'
-import { TextInput, TextInputProps, ActionIcon, useMantineTheme } from '@mantine/core';
+import { TextInput, ActionIcon, useMantineTheme } from '@mantine/core';
 import { Search, ArrowRight, ArrowLeft } from 'tabler-icons-react';
-import { Profile } from './profile/Profile'
+import { collection, getDocs, doc } from 'firebase/firestore';
+import { db } from '../../firebase/config';
+import { Profile } from './profile/Profile';
+import { Contact } from './contact/Contact';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Main = ({user}) => {
     const theme = useMantineTheme();
     const [addContact, setAddContact] = useState(false);
+    const [contact, setContact] = useState([]);
+    const appContacts = collection(db, "contacts");
+
+    const getContacts = async () => {
+        const dataContact = await getDocs(appContacts);
+        const contacts = dataContact.docs.map((doc) => ({...doc.data(), id: doc.id}));
+
+        setContact(contacts)
+    }
+
+    useEffect(() => {
+        getContacts();
+    }, [])
 
     return (
         <main className='main'>
@@ -21,6 +38,7 @@ const Main = ({user}) => {
                         email={user.email}
                     />
                 }
+
                 <header className='main__sidebar-user'>
                     <img src='https://excellence.truman.edu/files/2022/02/Photo-Placeholder-Image-150x150-1.jpg' 
                     alt='profile_photo'
@@ -43,6 +61,14 @@ const Main = ({user}) => {
                     placeholder="Search someone"
                     rightSectionWidth={42}
                 />
+
+                <div className='main__chatList'>
+                    {
+                        contact.map((index) => (
+                            <Contact key={index.id} photo={index.user.photoURL} name={index.user.name}/>
+                        ))
+                    }
+                </div>
 
                 <section className='main__sidebar-contacts'>
                 </section>
