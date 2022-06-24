@@ -1,5 +1,8 @@
 .chat{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .chat__header{
@@ -20,4 +23,28 @@
     margin-inline: 2%;
     font-size: 1.5rem;
     font-weight: 300;
+}
+
+.chat__log{
+    width: 100%;
+    height: 100%;
+    padding-inline: 0.75%;
+}
+
+.chat__footer{
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat__footer-input{
+    font-size: 1.25rem;
+    width: 95%;
+    height: 1.80em;
+    padding-inline: 1%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 1%;
 }

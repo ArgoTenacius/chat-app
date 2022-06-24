@@ -1,0 +1,7 @@
+.message__sender{
+    color: var(--blue);
+}
+
+.message__recipient{
+    color: black;
+}
