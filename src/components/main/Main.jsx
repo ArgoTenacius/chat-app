@@ -3,8 +3,8 @@ import './main.css'
 import {BsFillChatLeftTextFill} from 'react-icons/bs'
 import { TextInput, ActionIcon, useMantineTheme } from '@mantine/core';
 import { Search, ArrowRight, ArrowLeft } from 'tabler-icons-react';
-import { collection, getDocs, doc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { collection, getDocs, updateDoc, doc, arrayUnion } from 'firebase/firestore';
+import { db, auth } from '../../firebase/config';
 import { Profile } from './profile/Profile';
 import { Contact } from './contact/Contact';
 import { Chat } from './chat/Chat'
@@ -18,12 +18,23 @@ const Main = ({user}) => {
     const [addContact, setAddContact] = useState(false);
     const [contact, setContact] = useState([]);
     const appContacts = collection(db, "contacts");
+    const docRef = doc(db, "contacts", "cVngHwW6zFh2WxbQDqU8");
+
+    const sendMessage = async(text = "an error occurred") => {
+        const { uid, photoURL } = auth.currentUser;
+
+        await updateDoc(docRef, {
+            log: arrayUnion({
+                text: text,
+                by: uid
+            })
+        }, {merge: true})
+    }
 
     const getContacts = async () => {
         const dataContact = await getDocs(appContacts);
         const contacts = dataContact.docs.map((doc) => ({...doc.data(), id: doc.id}));
-
-        setContact(contacts)
+        setContact(contacts);
     }
 
     useEffect(() => {
@@ -73,7 +84,7 @@ const Main = ({user}) => {
                     }
                 </div>
             </div>
-            <Chat user={chatUser} log={chatLog}/>
+            <Chat user={chatUser} log={chatLog} userID={user.uid} sendMessage={sendMessage}/>
         </main>
     )
 }

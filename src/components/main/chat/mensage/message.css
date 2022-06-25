@@ -1,5 +1,19 @@
+.message{
+    margin-inline: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
 .message__sender{
-    color: var(--blue);
+    margin-block: 0.80rem;
+    background-color: var(--blue);
+    padding-block: 5px;
+    padding-inline: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 300px;
+    color: white;
+    align-self: flex-end;
 }
 
 .message__recipient{
