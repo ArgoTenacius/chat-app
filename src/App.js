@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
-import { Load } from './components';
-import RouteSwitch from './RouteSwitch';
+import React from 'react';
+import { auth } from './firebase/config.js';
+import { Auth, ChatApp } from './component/index.js'
+import { useAuthState } from 'react-firebase-hooks/auth';
 import './app.css'
 
 const App = () => {
-  const [user, setUser] = useState({});
-  const [onLoad, setOnLoad] = useState(true);
-  
+
+  const [user] = useAuthState(auth);
+  console.log(user)
+
   return (
     <div className='App'>
       {
-        onLoad ? <Load setOnLoad={setOnLoad} setUser={setUser} /> :
-        <RouteSwitch user={user} setUser={setUser} />
+        user ? <ChatApp /> : <Auth />
       }
     </div>
   );
