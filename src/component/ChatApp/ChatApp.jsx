@@ -1,8 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { Navbar, Chat } from '../index'
+import './chatApp.css';
 
-const ChatApp = () => {
+const ChatApp = ({user}) => {
   return (
-    <div>ChatApp</div>
+    <div>
+      <Navbar user={user}/>
+      <Chat />
+    </div>
   )
 }
 

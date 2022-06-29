@@ -7,12 +7,11 @@ import './app.css'
 const App = () => {
 
   const [user] = useAuthState(auth);
-  console.log(user)
 
   return (
     <div className='App'>
       {
-        user ? <ChatApp /> : <Auth />
+        user ? <ChatApp user={user}/> : <Auth />
       }
     </div>
   );
