@@ -4,8 +4,8 @@ import './chatApp.css';
 
 const ChatApp = ({user}) => {
   return (
-    <div>
-      <Navbar user={user}/>
+    <div className='chatApp'>
+      <Navbar userPhoto={user.photoURL}/>
       <Chat />
     </div>
   )
