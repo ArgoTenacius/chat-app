@@ -6,6 +6,20 @@
 }
 
 :root{
-    --primary-white: white;
-    --blue: #228be6;
+    --background-color: white;
+    --main-color: #7a2fc5;
+}
+
+.app__icon{
+    font-size: 2rem;
+    color: var(--main-color);
+    cursor: pointer;
+    filter: grayscale(0);
+    margin-inline: 0.25rem;
+}
+
+.app__photo-icon{
+    aspect-ratio: 1 / 1 !important;
+    width: 48px;
+    border-radius: 100%;
 }
