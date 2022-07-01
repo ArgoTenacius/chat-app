@@ -4,24 +4,30 @@ import { Navbar, Chat } from '../index';
 import { query, collection, where, getDocs } from 'firebase/firestore'
 import './chatApp.css';
 import { firestore } from '../../firebase/config';
+import { useEffect } from 'react';
 
 const ChatApp = ({user}) => {
 
-  const [contactID, setContactID] = useState("");
+  const [chat, setChat] = useState({})
   const [docID, setDocID] = useState("");
 
   const getDocID = async (id) => {
     const q = query(collection(firestore, "chats"), where("room.id", "==", id));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
+      setChat(doc.data())
       setDocID(doc.id)
     })
   }
 
+  useEffect(() => {
+    console.log(chat)
+  }, [chat])
+
   return (
     <div className='chatApp'>
-      <Navbar userPhoto={user.photoURL} setContactID={setContactID} getDocID={getDocID}/>
-      <Chat docID={docID}/>
+      <Navbar userPhoto={user.photoURL} getDocID={getDocID} />
+      <Chat docID={docID} chat={chat}/>
     </div>
   )
 }

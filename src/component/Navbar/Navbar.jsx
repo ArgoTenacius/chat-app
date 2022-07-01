@@ -15,7 +15,7 @@ const Navbar = ({userPhoto, getDocID}) => {
   const Contact = ({contact}) => (
     <div className='contact' onClick={() => selectContact(contact)}>
       <img src={contact.photoURL} alt='contact_photo' className='app__photo-icon' />
-      <h1 className='contact__title'>{contact.title}</h1>
+      <h1 className='app__contact-title'>{contact.title}</h1>
     </div>
   )
 
