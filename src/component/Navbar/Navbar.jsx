@@ -4,16 +4,13 @@ import { BiLogOut } from 'react-icons/bi'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import { auth, firestore } from '../../firebase/config'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, getDoc } from 'firebase/firestore'
+import { collection } from 'firebase/firestore'
 
-const Navbar = ({userPhoto, setContactID, getDocID}) => {
+const Navbar = ({userPhoto, getDocID}) => {
   const contactRef = collection(firestore, "chats");
   const [contacts] = useCollectionData(contactRef, {idField: 'id'});
 
-  const selectContact = (contact) => {
-    setContactID(contact.id);
-    getDocID(contact.id)
-  }
+  const selectContact = (contact) => { getDocID(contact.id) }
 
   const Contact = ({contact}) => (
     <div className='contact' onClick={() => selectContact(contact)}>
