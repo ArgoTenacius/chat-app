@@ -2,6 +2,7 @@ import React from 'react'
 import { updateDoc, doc, arrayUnion} from 'firebase/firestore'
 import './chat.css'
 import { auth, firestore } from '../../firebase/config'
+import Message from '../Message/Message'
 
 const Chat = ({chat, docID}) => {
   console.log(chat)
@@ -26,9 +27,9 @@ const Chat = ({chat, docID}) => {
       </header>
       <div className='chat__log'>
         {
-          chat.messages.map((index) => {
-            console.log(index)
-          })
+          chat.messages.map((index, id) => (
+            <Message key={id} text={index.text} sent={index.sendBy === auth.currentUser.uid ? true : false}/>
+          ))
         }
       </div>
       <input className='chat__input' maxLength={100} onKeyDown={(e) => {

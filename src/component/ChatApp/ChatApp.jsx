@@ -20,10 +20,6 @@ const ChatApp = ({user}) => {
     })
   }
 
-  useEffect(() => {
-    console.log(chat)
-  }, [chat])
-
   return (
     <div className='chatApp'>
       <Navbar userPhoto={user.photoURL} getDocID={getDocID} />
