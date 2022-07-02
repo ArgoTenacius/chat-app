@@ -7,9 +7,6 @@ const Auth = () => {
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
-        auth.currentUser = result
-      });
   }
 
   return (
