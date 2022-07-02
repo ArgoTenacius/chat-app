@@ -1,5 +1,5 @@
-import React from 'react'
-import { updateDoc, doc, arrayUnion, collection, serverTimestamp} from 'firebase/firestore'
+import React, { useRef } from 'react'
+import { updateDoc, doc, arrayUnion, collection} from 'firebase/firestore'
 import './chat.css'
 import { auth, firestore } from '../../firebase/config'
 import Message from '../Message/Message'
@@ -8,11 +8,11 @@ import { useDocumentData } from 'react-firebase-hooks/firestore'
 const Chat = ({docID}) => {
   const messagesRef = doc(collection(firestore, "chats"), docID);
   const [messages, loading] = useDocumentData(messagesRef, {idField: 'id'});
+  const messageInput = useRef();
 
-  console.log(messages)
+  const sendMessage = async (text) => {    
+    messageInput.current.value = ""
 
-  const sendMessage = async (text) => {
-    
     await updateDoc(messagesRef, {
       messages: arrayUnion({
         sendBy: auth.currentUser.uid,
@@ -36,7 +36,7 @@ const Chat = ({docID}) => {
           ))
         }
       </div>
-      <input className='chat__input' maxLength={100} onKeyDown={(e) => {
+      <input ref={messageInput} className='chat__input' maxLength={100} onKeyDown={(e) => {
         e.key === "Enter" && sendMessage(e.target.value)
       }}/>
     </div>
