@@ -5,10 +5,14 @@
     flex-direction: column;
     justify-content: space-between;
     padding-inline: 2rem;
+    padding-block: 0.25rem;
 }
 
 .chat__log{
+    padding-block: 0.5rem;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat__input{
@@ -18,4 +22,8 @@
     outline: none;
     padding: 0.25rem;
     margin-bottom: 0.5rem;
+}
+
+.chat__header{
+    display: flex;
 }

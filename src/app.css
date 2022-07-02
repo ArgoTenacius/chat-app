@@ -10,6 +10,15 @@
     --main-color: #7a2fc5;
 }
 
+.app__contact-title{
+    padding-inline: 0.50rem;
+    font-weight: 400;
+    width: 100%;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .app__icon{
     font-size: 2rem;
     color: var(--main-color);

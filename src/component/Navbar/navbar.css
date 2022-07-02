@@ -22,12 +22,3 @@
     user-select: none;
     cursor: pointer;
 }
-
-.contact__title{
-    padding-inline: 0.50rem;
-    font-weight: 400;
-    width: 100%;
-    overflow: hidden; 
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
