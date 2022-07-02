@@ -1,33 +1,37 @@
 import React from 'react'
-import { updateDoc, doc, arrayUnion} from 'firebase/firestore'
+import { updateDoc, doc, arrayUnion, collection, serverTimestamp} from 'firebase/firestore'
 import './chat.css'
 import { auth, firestore } from '../../firebase/config'
 import Message from '../Message/Message'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 
-const Chat = ({chat, docID}) => {
-  console.log(chat)
+const Chat = ({docID}) => {
+  const messagesRef = doc(collection(firestore, "chats"), docID);
+  const [messages, loading] = useDocumentData(messagesRef, {idField: 'id'});
+
+  console.log(messages)
+
   const sendMessage = async (text) => {
-    const ref = doc(firestore, "chats", docID);
     
-    await updateDoc(ref, {
+    await updateDoc(messagesRef, {
       messages: arrayUnion({
         sendBy: auth.currentUser.uid,
-        text: text
+        text: text,
+        createdAt: new Date().getTime()
       })
     }, {merge: true})
   }
 
   return (
-    
-    Object.keys(chat).length === 0 ? <h1>Empty</h1> :
+    loading === false && 
     <div className='chat'>
       <header className='chat__header'>
-        <img src={chat.room.photoURL} alt="chat_photo" className='app__photo-icon'/>
-        <h1 className='app__contact-title'>{chat.room.title}</h1>
+        <img src={messages.room.photoURL} alt="chat_photo" className='app__photo-icon'/>
+        <h1 className='app__contact-title'>{messages.room.title}</h1>
       </header>
       <div className='chat__log'>
         {
-          chat.messages.map((index, id) => (
+          messages.messages.map((index, id) => (
             <Message key={id} text={index.text} sent={index.sendBy === auth.currentUser.uid ? true : false}/>
           ))
         }
