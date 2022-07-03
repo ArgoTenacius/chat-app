@@ -1,12 +1,20 @@
 import React from 'react'
 import './message.css'
 
-const Message = ({text, sent = false}) => {
+const Message = ({text, title, sent = false}) => {
   return (
     <div className={sent ? 'message sent' : 'message received'}>
-        <h1 className='message__text'>
+      <p>
+        {
+        !sent && 
+          <span className='message__title'>
+            {title}
+          </span>
+        }
+        <span className='message__text'>
             {text}
-        </h1>
+        </span>
+      </p>
     </div>
   )
 }

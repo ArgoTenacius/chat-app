@@ -16,6 +16,7 @@ const Chat = ({docID}) => {
     await updateDoc(messagesRef, {
       messages: arrayUnion({
         sendBy: auth.currentUser.uid,
+        displayName: auth.currentUser.displayName,
         text: text,
         createdAt: new Date().getTime()
       })
@@ -32,13 +33,15 @@ const Chat = ({docID}) => {
       <div className='chat__log'>
         {
           messages.messages.map((index, id) => (
-            <Message key={id} text={index.text} sent={index.sendBy === auth.currentUser.uid ? true : false}/>
+            <Message key={id} text={index.text} title={index.displayName} sent={index.sendBy === auth.currentUser.uid ? true : false}/>
           ))
         }
       </div>
-      <input ref={messageInput} className='chat__input' maxLength={100} onKeyDown={(e) => {
-        e.key === "Enter" && sendMessage(e.target.value)
-      }}/>
+      <div className='chat__input-div'>
+        <input ref={messageInput} className='chat__input' maxLength={100} onKeyDown={(e) => {
+          e.key === "Enter" && sendMessage(e.target.value)
+        }}/>
+      </div>
     </div>
   )
 }
