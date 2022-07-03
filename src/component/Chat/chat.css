@@ -8,22 +8,36 @@
     padding-block: 0.25rem;
 }
 
+
+.chat__header{
+    z-index: 1000;
+    display: flex;
+    background-color: white;
+}
+
 .chat__log{
     padding-block: 0.5rem;
+    overflow-y: auto;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
+.chat__log::-webkit-scrollbar{
+    display: none;
+}
+
+.chat__input-div{
+    width: 100%;
+}
+
 .chat__input{
     font-size: 1.25rem;
+    width: 100%;
+    z-index: 1000;
     border: 1px solid rgba(0, 0, 0, 0.33);
     border-radius: 5px;
     outline: none;
     padding: 0.25rem;
     margin-bottom: 0.5rem;
-}
-
-.chat__header{
-    display: flex;
 }
