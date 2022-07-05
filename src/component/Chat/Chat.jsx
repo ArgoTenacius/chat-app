@@ -10,17 +10,19 @@ const Chat = ({docID}) => {
   const [messages, loading] = useDocumentData(messagesRef, {idField: 'id'});
   const messageInput = useRef();
 
-  const sendMessage = async (text) => {    
-    messageInput.current.value = ""
+  const sendMessage = async (text) => {
+    if(text.length > 0){
+      messageInput.current.value = ""
 
-    await updateDoc(messagesRef, {
-      messages: arrayUnion({
-        sendBy: auth.currentUser.uid,
-        displayName: auth.currentUser.displayName,
-        text: text,
-        createdAt: new Date().getTime()
-      })
-    }, {merge: true})
+      await updateDoc(messagesRef, {
+        messages: arrayUnion({
+          sendBy: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName,
+          text: text,
+          createdAt: new Date().getTime()
+        })
+      }, {merge: true})
+    }
   }
 
   return (
