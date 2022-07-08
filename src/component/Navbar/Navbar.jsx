@@ -1,7 +1,6 @@
 import React from 'react'
 import './navbar.css'
 import { BiLogOut } from 'react-icons/bi'
-import { AiOutlineUserAdd } from 'react-icons/ai'
 import { auth, firestore } from '../../firebase/config'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore'
@@ -25,7 +24,6 @@ const Navbar = ({userPhoto, getDocID}) => {
         <img src={userPhoto} alt='profile_photo' className='app__photo-icon'/>
         <div>
           <BiLogOut className='app__icon' onClick={() => auth.signOut()}/>
-          <AiOutlineUserAdd className='app__icon'/>
         </div>
       </header>
 
