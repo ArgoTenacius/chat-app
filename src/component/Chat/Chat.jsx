@@ -11,7 +11,7 @@ const Chat = ({docID}) => {
   const messageInput = useRef();
 
   const sendMessage = async (text) => {
-    if(text.length > 0){
+    if(text.trim().length > 0){
       messageInput.current.value = ""
 
       await updateDoc(messagesRef, {
