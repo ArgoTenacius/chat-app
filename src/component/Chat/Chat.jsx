@@ -4,11 +4,32 @@ import './chat.css'
 import { auth, firestore } from '../../firebase/config'
 import Message from '../Message/Message'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const Chat = ({docID}) => {
   const messagesRef = doc(collection(firestore, "chats"), docID);
+  const [openedChat, setOpenedChat] = useState(true);
   const [messages, loading] = useDocumentData(messagesRef, {idField: 'id'});
   const messageInput = useRef();
+  let element_list;
+
+  const updateScroll = () => {
+      console.log(element_list.clientHeight)
+      /*
+      console.log(element_list.clientHeight);
+      console.log("height:" + element_list.scrollHeight); 
+      */
+
+  }
+  
+  setTimeout(() => {
+    element_list = document.documentElement.getElementsByClassName("chat__log")[0];
+    if(openedChat) {
+      element_list.scrollTo(0, element_list.scrollHeight);
+      setOpenedChat(false);
+    }
+  }, 100)
 
   const sendMessage = async (text) => {
     if(text.trim().length > 0){
