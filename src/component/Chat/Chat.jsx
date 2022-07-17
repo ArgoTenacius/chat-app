@@ -11,17 +11,10 @@ const Chat = ({docID}) => {
   const messagesRef = doc(collection(firestore, "chats"), docID);
   const [openedChat, setOpenedChat] = useState(true);
   const [messages, loading] = useDocumentData(messagesRef, {idField: 'id'});
+  const [chatHeight, setChatHeight] = useState(0);
   const messageInput = useRef();
+  const dummy = useRef();
   let element_list;
-
-  const updateScroll = () => {
-      console.log(element_list.clientHeight)
-      /*
-      console.log(element_list.clientHeight);
-      console.log("height:" + element_list.scrollHeight); 
-      */
-
-  }
   
   setTimeout(() => {
     element_list = document.documentElement.getElementsByClassName("chat__log")[0];
@@ -43,6 +36,7 @@ const Chat = ({docID}) => {
           createdAt: new Date().getTime()
         })
       }, {merge: true})
+      dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
@@ -59,6 +53,7 @@ const Chat = ({docID}) => {
             <Message key={id} text={index.text} title={index.displayName} sent={index.sendBy === auth.currentUser.uid ? true : false}/>
           ))
         }
+        <span ref={dummy}></span>
       </div>
       <div className='chat__input-div'>
         <input ref={messageInput} className='chat__input' maxLength={100} onKeyDown={(e) => {
